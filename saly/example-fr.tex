@@ -1,0 +1,575 @@
+%% LyX 2.4.0dev created this file.  For more info, see https://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english,french,american]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{babel}
+\makeatletter
+\addto\extrasfrench{%
+   \providecommand{\og}{\leavevmode\flqq~}%
+   \providecommand{\fg}{\ifdim\lastskip>\z@\unskip\fi~\frqq}%
+}
+
+\makeatother
+\usepackage{verbatim}
+\usepackage{cprotect}
+\usepackage{ifthen}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[unicode=true]
+ {hyperref}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\providecommand{\LyX}{\texorpdfstring{\ensureascii{%
+  L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}}{LyX}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\usepackage{sagetex}
+\newcommand{\centerplot}[1]{\begin{center}\sageplot[width=10cm][pdf]{#1}\end{center}}
+\newcommand{\sageeqninline}[1]{$ \sage{#1} $}
+\newcommand{\sageeqndisplay}[1]{\[ \sage{#1} \]}
+%
+% The preamble inserted by the Lyx Notebook module for Sage.
+%
+\usepackage{listings}
+\usepackage{verbatim} % to make comment blocks for non-printing
+\usepackage{ifthen} % etoolbox is apparently more modern, but ifthen works fine
+\usepackage{color}
+\usepackage{marginnote} % for small labels to right of cells
+\usepackage{needspace} % prevent bad line breaks hopefully
+\usepackage{graphicx} % to rotate the small labels to the right of cells
+\usepackage{setspace} % needed for \setstretch, which may not be needed
+% \usepackage[T1]{fontenc} % needed for some fonts if not already loaded
+\usepackage{textcomp} % needed for upquote=true option and fonts like beramono
+% \usepackage{courier} % for lack of bold in Computer Modern typewriter font
+% \usepackage{palatino}
+%
+% Just tell users in docs to select luximono or beramono for tt font, from
+% lyx document menu, if they have it installed.
+%\IfFileExists{luximono.sty}{
+%   \usepackage[scaled]{luximono} % recommended by some, not preloaded
+%}
+%{}
+% \usepackage[scaled]{beramono} % bitstream vera mono
+% \usepackage[scaled]{inconsolata}
+
+% set some global formatting options to their default values
+\def\lyxNotebookNoColor{false} % use color unless this def is overridden
+\def\lyxNotebookNoCellLabels{false} % put small label on cells unless set true
+\def\lyxNotebookNeedspaceLabelValue{4\baselineskip}
+
+
+%
+% Header stuff for the Sage Init cells.
+%
+% Define the function to turn off printing (just make same as verbatim comment)
+% for the inset specifier Sage and basic cell type Init
+% Note at least some EOL comments required below or extra space inserted in text.
+\def\lyxNotebookPrintingIsOffInitSage{false}
+\def\lyxNotebookPrintOffInitSage{%
+   \def\lyxNotebookPrintingIsOffInitSage{true}%
+   \let\oldLyxNotebookCellInitSage\lyxNotebookCellInitSage%
+   \let\lyxNotebookCellInitSage=\comment%
+   \let\oldEndlyxNotebookCellInitSage\endlyxNotebookCellInitSage%
+   \let\endlyxNotebookCellInitSage=\endcomment%
+}%
+
+% Define the function to turn printing back on if it has been turned off
+% for the inset specifier Sage and basic cell type Init
+% Note at least some EOL comments required below or extra space inserted in text.
+\def\lyxNotebookPrintOnInitSage{%
+   \ifthenelse{\equal{\lyxNotebookPrintingIsOffInitSage}{true}}{%
+      \let\lyxNotebookCellInitSage=\oldLyxNotebookCellInitSage%
+      \let\endlyxNotebookCellInitSage=\oldEndlyxNotebookCellInitSage%
+      \def\lyxNotebookPrintingIsOffInitSage{false}%
+   }%
+   {}%
+}%
+
+% Build up the general printing off/on commands by adding commands for the
+% inset specifier Sage and basic cell type Init
+% (Note expandafter is used to avoid recursion problems; using e.g.
+% \let\oldegg\egg and then using oldegg on the r.h.s. should also work.)
+\ifthenelse{\isundefined{\lyxNotebookPrintOff}}{\def\lyxNotebookPrintOff{}}{}
+\expandafter\def\expandafter\lyxNotebookPrintOff\expandafter{\lyxNotebookPrintOff\lyxNotebookPrintOffInitSage}
+\ifthenelse{\isundefined{\lyxNotebookPrintOn}}{\def\lyxNotebookPrintOn{}}{}
+\expandafter\def\expandafter\lyxNotebookPrintOn\expandafter{\lyxNotebookPrintOn\lyxNotebookPrintOnInitSage}
+
+%
+% Header stuff for the Sage Standard cells.
+%
+% Define the function to turn off printing (just make same as verbatim comment)
+% for the inset specifier Sage and basic cell type Standard
+% Note at least some EOL comments required below or extra space inserted in text.
+\def\lyxNotebookPrintingIsOffStandardSage{false}
+\def\lyxNotebookPrintOffStandardSage{%
+   \def\lyxNotebookPrintingIsOffStandardSage{true}%
+   \let\oldLyxNotebookCellStandardSage\lyxNotebookCellStandardSage%
+   \let\lyxNotebookCellStandardSage=\comment%
+   \let\oldEndlyxNotebookCellStandardSage\endlyxNotebookCellStandardSage%
+   \let\endlyxNotebookCellStandardSage=\endcomment%
+}%
+
+% Define the function to turn printing back on if it has been turned off
+% for the inset specifier Sage and basic cell type Standard
+% Note at least some EOL comments required below or extra space inserted in text.
+\def\lyxNotebookPrintOnStandardSage{%
+   \ifthenelse{\equal{\lyxNotebookPrintingIsOffStandardSage}{true}}{%
+      \let\lyxNotebookCellStandardSage=\oldLyxNotebookCellStandardSage%
+      \let\endlyxNotebookCellStandardSage=\oldEndlyxNotebookCellStandardSage%
+      \def\lyxNotebookPrintingIsOffStandardSage{false}%
+   }%
+   {}%
+}%
+
+% Build up the general printing off/on commands by adding commands for the
+% inset specifier Sage and basic cell type Standard
+% (Note expandafter is used to avoid recursion problems; using e.g.
+% \let\oldegg\egg and then using oldegg on the r.h.s. should also work.)
+\ifthenelse{\isundefined{\lyxNotebookPrintOff}}{\def\lyxNotebookPrintOff{}}{}
+\expandafter\def\expandafter\lyxNotebookPrintOff\expandafter{\lyxNotebookPrintOff\lyxNotebookPrintOffStandardSage}
+\ifthenelse{\isundefined{\lyxNotebookPrintOn}}{\def\lyxNotebookPrintOn{}}{}
+\expandafter\def\expandafter\lyxNotebookPrintOn\expandafter{\lyxNotebookPrintOn\lyxNotebookPrintOnStandardSage}
+
+%
+% Header stuff for the Sage Output cells.
+%
+% Define the function to turn off printing (just make same as verbatim comment)
+% for the inset specifier Sage and basic cell type Output
+% Note at least some EOL comments required below or extra space inserted in text.
+\def\lyxNotebookPrintingIsOffOutputSage{false}
+\def\lyxNotebookPrintOffOutputSage{%
+   \def\lyxNotebookPrintingIsOffOutputSage{true}%
+   \let\oldLyxNotebookCellOutputSage\lyxNotebookCellOutputSage%
+   \let\lyxNotebookCellOutputSage=\comment%
+   \let\oldEndlyxNotebookCellOutputSage\endlyxNotebookCellOutputSage%
+   \let\endlyxNotebookCellOutputSage=\endcomment%
+}%
+
+% Define the function to turn printing back on if it has been turned off
+% for the inset specifier Sage and basic cell type Output
+% Note at least some EOL comments required below or extra space inserted in text.
+\def\lyxNotebookPrintOnOutputSage{%
+   \ifthenelse{\equal{\lyxNotebookPrintingIsOffOutputSage}{true}}{%
+      \let\lyxNotebookCellOutputSage=\oldLyxNotebookCellOutputSage%
+      \let\endlyxNotebookCellOutputSage=\oldEndlyxNotebookCellOutputSage%
+      \def\lyxNotebookPrintingIsOffOutputSage{false}%
+   }%
+   {}%
+}%
+
+% Build up the general printing off/on commands by adding commands for the
+% inset specifier Sage and basic cell type Output
+% (Note expandafter is used to avoid recursion problems; using e.g.
+% \let\oldegg\egg and then using oldegg on the r.h.s. should also work.)
+\ifthenelse{\isundefined{\lyxNotebookPrintOff}}{\def\lyxNotebookPrintOff{}}{}
+\expandafter\def\expandafter\lyxNotebookPrintOff\expandafter{\lyxNotebookPrintOff\lyxNotebookPrintOffOutputSage}
+\ifthenelse{\isundefined{\lyxNotebookPrintOn}}{\def\lyxNotebookPrintOn{}}{}
+\expandafter\def\expandafter\lyxNotebookPrintOn\expandafter{\lyxNotebookPrintOn\lyxNotebookPrintOnOutputSage}
+
+% Latex code for Sage cells from interpreter_spec.py
+%
+% Define some of the variables described in the documentation to set the font
+% size and family.  These definitions should preferably be used below instead of
+% the values themselves (so users can easily redefine these default values
+% from their preamble).
+\def\lyxNotebookFontSize{\footnotesize}
+\def\lyxNotebookColorCodeFontFamily{\ttfamily}
+\def\lyxNotebookColorOutputFontFamily{\ttfamily}
+\def\lyxNotebookNoColorCodeFontFamily{\sffamily}
+\def\lyxNotebookNoColorOutputFontFamily{\sffamily}
+\def\lyxNotebookLabelFormat{\ttfamily\tiny\bfseries}
+
+% define some colors to use
+\definecolor{gray9}{gray}{0.5}
+\definecolor{darkGray9}{gray}{0.05} % almost black, for normal text with colors
+\definecolor{green9}{rgb}{0,0.6,0}
+\definecolor{darkerGreen9}{rgb}{0,0.3,0}
+\definecolor{darkerRed9}{rgb}{0.6,0.0,0.0}
+\definecolor{brightRed9}{rgb}{1.0,0.0,0.0}
+\definecolor{yellowGold9}{rgb}{0.7,0.5,0.0}
+\definecolor{blue9}{rgb}{0.20,0.20,1.0}
+\definecolor{darkerBlue9}{rgb}{0.20,0.20,0.60}
+\definecolor{pinkRed9}{rgb}{0.9,0.2,0.4}
+\definecolor{turquoise9}{rgb}{0.0,0.6,1.0}
+\definecolor{bluishPurple9}{rgb}{0.2,0.0,1.0}
+\definecolor{purple9}{rgb}{0.4,0.0,1.0}
+
+%
+% Now define the Listings styles for Lyx Notebook Sage,
+% setting the language to python (which will be replaced by the
+% listings_language field of the general spec.  Note the default frame
+% conventions are defined here (since the general code format for Init
+% and Standard cells doesn't differ).
+%
+
+% define style lyxNotebookNoColorInitSage
+\lstdefinestyle{lyxNotebookNoColorInitSage}{
+   language=python,
+   % general_listings_code_format
+   showlines=true, % keep blank lines at end of listing blocks
+   sensitive=true,
+   morecomment=[s]{"""}{"""},
+   %alsoletter={1234567890}, % numbers like letters
+   % but in otherkeywords causes it to highlight in strings and comments
+   %otherkeywords={(,),[,],\{,\},@,\,,:,.,`,=,;,+=,-=,*=,/=,//=,%=,&=,|=,^=,>>=,<<=,**=} % delimiters in Python
+   %otherkeywords={1,2,3,4,5,6,7,8,9,0,-,=,+,[,],(,),\{,\},:,*,!},
+   %
+   % The keywords need to be redefined to reset the "import" color.
+   % See http://docs.python.org/reference/lexical_analysis.html
+   keywords=[1]{and,as,assert,break,class,continue,def,del,elif,else,%
+                except,exec,finally,for,global,if,in,is,lambda,not,or,%
+                pass,print,raise,return,try,while,with,yield},
+   morekeywords=[2]{True, False, None, self, NotImplemented, Ellipsis,%
+                    __debug__, quit, exit, copyright, license, credits},
+   morekeywords=[3]{from,import}, % note "as" is also in "with" and "except"
+   %mathescape=true,
+   % Linebreak symbols: arrows look nice but mess up the frame
+   % prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+   % postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\diagdown}},
+   % Use backslash instead:
+   prebreak=\bf\textbackslash,
+   showstringspaces=false,
+   breaklines=true,
+   breakatwhitespace=true,
+   breakindent=1.5em,
+   breakautoindent=true,
+   % fancyvrb=true, % causes problems, even with all but lang commented out
+   % numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=6pt,
+   % columns=flexible,
+   % columns=fullflexible, % good with monospace font, & more chars per line
+   columns=fixed, % fewer chars per line, but keeps extra spaces inserted
+   % linewidth=\linewidth, % default seems to work better
+   upquote=true, 
+   % non_color_listings_code_format
+   basicstyle=\lyxNotebookFontSize%
+              \setstretch{1}%
+              \lyxNotebookNoColorCodeFontFamily%
+              \color{darkGray9},
+   stringstyle=\ttfamily, % use ttfamily for strings at least
+   %commentstyle=\upshape, % don't use the default italic comments
+   commentstyle=\slshape\color[rgb]{0.3,0.3,0.3}, % slanted gray
+   %commentstyle=\itshape,
+   keywordstyle=[1]\bfseries,
+   keywordstyle=[2]\bfseries,
+   keywordstyle=[3]\bfseries, 
+   frame=TbLR
+}
+
+% define style lyxNotebookNoColorStandardSage
+\lstdefinestyle{lyxNotebookNoColorStandardSage}{
+   style=lyxNotebookNoColorInitSage,
+   frame=tblr
+}
+
+% define style lyxNotebookColorInitSage
+\lstdefinestyle{lyxNotebookColorInitSage}{
+   language=python,
+   % general_listings_code_format
+   showlines=true, % keep blank lines at end of listing blocks
+   sensitive=true,
+   morecomment=[s]{"""}{"""},
+   %alsoletter={1234567890}, % numbers like letters
+   % but in otherkeywords causes it to highlight in strings and comments
+   %otherkeywords={(,),[,],\{,\},@,\,,:,.,`,=,;,+=,-=,*=,/=,//=,%=,&=,|=,^=,>>=,<<=,**=} % delimiters in Python
+   %otherkeywords={1,2,3,4,5,6,7,8,9,0,-,=,+,[,],(,),\{,\},:,*,!},
+   %
+   % The keywords need to be redefined to reset the "import" color.
+   % See http://docs.python.org/reference/lexical_analysis.html
+   keywords=[1]{and,as,assert,break,class,continue,def,del,elif,else,%
+                except,exec,finally,for,global,if,in,is,lambda,not,or,%
+                pass,print,raise,return,try,while,with,yield},
+   morekeywords=[2]{True, False, None, self, NotImplemented, Ellipsis,%
+                    __debug__, quit, exit, copyright, license, credits},
+   morekeywords=[3]{from,import}, % note "as" is also in "with" and "except"
+   %mathescape=true,
+   % Linebreak symbols: arrows look nice but mess up the frame
+   % prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+   % postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\diagdown}},
+   % Use backslash instead:
+   prebreak=\bf\textbackslash,
+   showstringspaces=false,
+   breaklines=true,
+   breakatwhitespace=true,
+   breakindent=1.5em,
+   breakautoindent=true,
+   % fancyvrb=true, % causes problems, even with all but lang commented out
+   % numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=6pt,
+   % columns=flexible,
+   % columns=fullflexible, % good with monospace font, & more chars per line
+   columns=fixed, % fewer chars per line, but keeps extra spaces inserted
+   % linewidth=\linewidth, % default seems to work better
+   upquote=true, 
+   % color_listings_code_format
+   basicstyle=\lyxNotebookFontSize%
+              \setstretch{1}%
+              \lyxNotebookColorCodeFontFamily%
+              \color{darkGray9},
+   rulecolor=\color{black}, % may be needed for line-broken color lines
+   %identifierstyle=\color{darkGray9},
+   stringstyle=\ttfamily\color{blue9},
+   %stringstyle=\ttfamily\color{darkerBlue9},
+   %stringstyle=\ttfamily\color{green9},
+   %commentstyle=\upshape\color{green9},
+   %commentstyle=\slshape\color{darkerGreen9},
+   commentstyle=\slshape\color[rgb]{0.0,0.4,0.0},
+   keywordstyle=[1]\bfseries\color{darkerRed9},
+   keywordstyle=[2]\bfseries\color{pinkRed9},
+   keywordstyle=[3]\bfseries\color{yellowGold9}, 
+   frame=TbLR
+}
+
+% define style lyxNotebookColorStandardSage
+\lstdefinestyle{lyxNotebookColorStandardSage}{
+   style=lyxNotebookColorInitSage,
+   frame=tblr
+}
+
+% define style lyxNotebookColorNonEvalSage
+\lstdefinestyle{lyxNotebookColorNonEvalSage}{
+   style=lyxNotebookColorInitSage,
+   frame=TBLR
+}
+
+% define style lyxNotebookNoColorNonEvalSage
+\lstdefinestyle{lyxNotebookNoColorNonEvalSage}{
+   style=lyxNotebookNoColorInitSage,
+   frame=TBLR
+}
+
+% define style lyxNotebookNoColorOutputSage
+\lstdefinestyle{lyxNotebookNoColorOutputSage}{
+   language=,
+   % general_listings_output_format
+   showlines=true, % keep blank lines at end
+   %mathescape=true,
+   showstringspaces=false,
+   breaklines=true,
+   breakatwhitespace=true,
+   breakindent=1.5em, breakautoindent=true,
+   % Linebreaks: see comments earlier for code cells; arrows mess up frames.
+   % prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+   % postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\diagdown}},
+   % Use backslash instead.
+   prebreak=\bf\textbackslash,
+   % linewidth=\linewidth, % default seems to work better
+   % numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=6pt,
+   % columns=flexible, %
+   % columns=fullflexible, % good with monospace font, & more chars per line
+   columns=fixed, % fewer chars per line, but keeps extra spaces inserted
+   aboveskip=\doubleskipamount, % make abut the cell above, a calulated value
+   upquote=true, 
+   % non_color_listings_output_format
+   % set the font to a gray color
+   basicstyle=\lyxNotebookFontSize%
+              \setstretch{1}%
+              \lyxNotebookNoColorOutputFontFamily%
+              \color[rgb]{0.2,0.2,0.2}, 
+   frame=tblr
+}
+
+% define lyxNotebookColorOutputSage
+\lstdefinestyle{lyxNotebookColorOutputSage}{
+   language=,
+   % general_listings_output_format
+   showlines=true, % keep blank lines at end
+   %mathescape=true,
+   showstringspaces=false,
+   breaklines=true,
+   breakatwhitespace=true,
+   breakindent=1.5em, breakautoindent=true,
+   % Linebreaks: see comments earlier for code cells; arrows mess up frames.
+   % prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+   % postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\diagdown}},
+   % Use backslash instead.
+   prebreak=\bf\textbackslash,
+   % linewidth=\linewidth, % default seems to work better
+   % numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=6pt,
+   % columns=flexible, %
+   % columns=fullflexible, % good with monospace font, & more chars per line
+   columns=fixed, % fewer chars per line, but keeps extra spaces inserted
+   aboveskip=\doubleskipamount, % make abut the cell above, a calulated value
+   upquote=true, 
+   % color_listings_output_format
+   % set the font to a gray color
+   basicstyle=\lyxNotebookFontSize%
+              \setstretch{1}
+              \lyxNotebookColorOutputFontFamily
+              \color[rgb]{0.2,0.2,0.2}, 
+   frame=tblr
+}
+
+
+
+
+\makeatother
+
+\begin{document}
+\title{Exemple d'intégration de \LyX{} à Sage}
+\author{\selectlanguage{french}%
+Original par : Murat Yildizoglu}
+\author{Modifié par : Thomas Coffee }
+\date{March 30, 2012/ 7 juin, 2019}
+\maketitle
+\selectlanguage{american}%
+
+\section{Présentation}
+
+Sage (\href{http://sagemath.org}{http://sagemath.org}) is an open
+source computer algebra system that integrates a wide variety of open
+source mathematics software, with the mission of ''creating a viable
+free open source alternative to Magma, Maple, Mathematica, and Matlab.''
+Sage uses Python as the glue for integrating nearly 100 open source
+packages for mathematics, programming, and visualization. Sage speaks
+\LaTeX{} and can be used for literate programming that mixes normal
+text with Sage instructions, directly including results in PS/PDF
+files. The \texttt{sagetex.sty} package allows the input of Sage instructions
+in a \LaTeX{} file (in a manner similar to Sweave and R-Project).
+
+The file sage.module provides the following Sage{}\TeX{} elements
+in \LyX :
+\begin{itemize}
+\item \texttt{sageblock} and \texttt{sagesilent} environments for blocks
+of code made visible or invisible in the final document, respectively
+\item \texttt{sageplot} and \texttt{sageplotcenter}\footnote{a customized call to \texttt{sageplot} defined in the sage.module
+file; you can define similar environments with different options to
+conveniently generate multiple plots of different styles} environments that can be used for plotting code inside a Figure float
+\item \texttt{sagecommand} and \texttt{sageinline} insets\footnote{accessible via the menu item Insert >\textcompwordmark > Custom Insets}
+that can be used inline, where results of the latter appear in math
+mode
+\item \texttt{sagedisplay} environment, whose results appear in display
+math mode\footnote{you can define similar environments in sage.module to support other
+math environments}
+\end{itemize}
+The Sage{}\TeX{} commands \texttt{\textbackslash sage} and \texttt{\textbackslash sageplot},
+along with other custom commands defined in sage.module, can also
+be used as ERT. This can be useful in math mode when results from
+Sage should be combined seamlessly with other equation components.
+Note that \LyX 's special handling of math mode formatting can cause
+problems for some Sage input: for this reason, it may be necessary
+to assign a result to a named variable using a \texttt{sagesilent}
+environment and include the variable by name in ERT where the result
+should appear.
+
+When a Sage{}\TeX{} document \texttt{mydocument.tex} is compiled with
+(pdf)latex, it automatically generates a Sage file \texttt{mydocument.sage}
+that can be run through Sage using the command \texttt{sage mydocument.sage}.
+This compiles the results of the Sage instructions and a supplementary
+run through (pdf)latex includes these results (computations, plots,
+etc.) in the final document. The files included with this example
+provide a basic capability to combine this functionality with \LyX ,
+which you can extend to meet your specific needs.
+
+Using this module, to compile a document with embedded Sage code one
+must view the output as ``PDF (pdflatex+sagetex)'', located by default
+under ``Other Formats.'' To update only the \LaTeX{} without updating
+any results from Sage, one can use the default output format ``PDF
+(pdflatex)''. This default can be changed in the included \texttt{preferences}
+file.
+
+If you are working under GNU/Linux, the included shell script \texttt{setup.sh}
+can be customized to place the necessary components where they belong.
+This assumes you have already installed and tested \LyX{} and Sage
+independently, and includes the necessary commands to include Sage{}\TeX{}
+in a common \LaTeX{} installation.\footnote{based on \href{http://www.sagemath.org/doc/installation/sagetex.html}{http://www.sagemath.org/doc/installation/sagetex.html}}
+After establishing the configuration, you will need to run Tools >\textcompwordmark >
+Reconfigure from the \LyX{} menu. This configuration has been successfully
+tested using the following setup:
+\begin{itemize}
+\item Ubuntu 11.10 x86\_64
+\item \LyX{} 2.0.0 with \TeX Live 2009-13 (but should work with \LyX{} 1.6+)
+\item Sage 4.8 {[}2012-01-20{]}
+\end{itemize}
+Note that in earlier versions of Sage, Sage{}\TeX{} may produce files
+with extension \texttt{.sage} rather than \texttt{.sagetex.sage}.
+You may need to modify the \texttt{preferences} and \texttt{compile-pdf-sage.sh}
+files accordingly.
+
+\section{Exemples}
+
+Sage peut faire du \LaTeX : \sageeqninline{matrix([[1, 2], [3,4]])^2}
+
+\selectlanguage{french}%
+\begin{figure}
+\centerplot{plot(sin(x), -pi, pi), axes=True,frame=True,figsize=4,fontsize=5,gridlines="major"}
+
+\caption{Fonction sinus}\label{fig:Test-de-figure}
+\end{figure}
+
+\selectlanguage{english}%
+Sage{}\TeX{} peut inclure des blocks pour définir et calculer des
+éléments. Dans ce cas, les blocks ne sont mis en forme dans le document,
+puisqu'on utilise \texttt{sagesilent} environment. On déclare $x$
+comme variable et $y=x^{2}+5x+2$.
+\selectlanguage{american}%
+\begin{sagesilent}
+x=var('x')
+y=x^2+5*x+2
+\end{sagesilent}
+
+On peut maintenant calculer une équation avec une inconnue $x$: la
+racine de l'équation $x^{2}+5x+2$ est obtenue alors par le calcul
+avec Sage :
+\sageeqndisplay{solve(y,x)}
+
+Another equation, third degree of $x$ this time: roots of $x^{3}-10$
+are: 
+\sageeqndisplay{solve(x^3-10,x)}
+
+A system of two equations:
+\begin{sageblock}
+x,y=var('x y')
+z=solve([x+y==6,x-y==4],x,y)
+\end{sageblock}
+
+The roots of the system\foreignlanguage{french}{
+\[
+\begin{array}{ccc}
+x+y & = & 6\\
+x-y & = & 4
+\end{array}
+\]
+are given by:}
+\sageeqndisplay{z}
+
+Sage can do differentiation:
+\begin{sageblock}
+y=sin(x^2)
+\end{sageblock}
+
+\selectlanguage{french}%
+\begin{center}
+$\dfrac{\partial^{4}y}{\partial x^{4}}=\sage{diff(y,x,4)}$
+\par\end{center}
+
+\selectlanguage{american}%
+Sage can also do integrals:\foreignlanguage{french}{ 
+\[
+\int_{0}^{1}\frac{x}{x^{2}+1}
+\]
+}is given by \sageeqninline{integral(x/(x^2+1),x,0,1)}.
+
+Sage can solve differential equations: we declare a variable $t$,
+a function of $t$, $x(t)$ and a differential equation\foreignlanguage{french}{
+\[
+\frac{dx}{dt}+x-1=0
+\]
+}
+\begin{sageblock}
+t = var('t')
+x = function('x')(t)
+DE = diff(x, t) + x - 1
+\end{sageblock}
+
+We can now solve the equation: 
+
+\begin{center}
+$x(t)=\sage{desolve(DE,[x,t])}$
+\par\end{center}
+
+Traduit par : Henri Girard, 7 juin 2019
+\end{document}
